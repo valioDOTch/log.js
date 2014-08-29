@@ -66,8 +66,8 @@ things to do
                 overlay.style.display = "none";
                 specialBox.style.display = "none";
             } else {
-                document.getElementById('loghistory').innerHtml="<pre>"+console.log.history.join("\n")+"</pre>";
-                document.getElementById('errorhistory').innerHtml="<pre>"+console.error.history.join("\n")+"</pre>";
+                document.getElementById('loghistory').innerHTML=console.log.history.join("\n");
+                document.getElementById('errorhistory').innerHTML=console.error.history.join("\n");
                 overlay.style.display = "block";
                 specialBox.style.display = "block";
             }
@@ -95,7 +95,7 @@ things to do
     <p>Debug</p>
     <!--data:application/json-->
     <a id="link"
-       href="application/octet-stream;base64,Ww0KICB7DQogICAgIl9pZCI6ICI1NDAwMzNmZTZjMzRhNjA3MGE4MmYyZDUiLA0KICAgICJpbmRleCI6IDAsDQogICAgImd1aWQiOiAiOTJmM2JhMmUtMTgxMC00MWEwLWE2Y2ItZmE1OGJhOTE1MTA3IiwNCiAgICAiaXNBY3RpdmUiOiBmYWxzZSwNCiAgICAiYmFsYW5jZSI6ICIkMiwyOTIuODgiLA0KICAgICJwaWN0dXJlIjogImh0dHA6Ly9wbGFjZWhvbGQuaXQvMzJ4MzIiDQp9DQpd"
+       href="data:application/octet-stream;base64,Ww0KICB7DQogICAgIl9pZCI6ICI1NDAwMzNmZTZjMzRhNjA3MGE4MmYyZDUiLA0KICAgICJpbmRleCI6IDAsDQogICAgImd1aWQiOiAiOTJmM2JhMmUtMTgxMC00MWEwLWE2Y2ItZmE1OGJhOTE1MTA3IiwNCiAgICAiaXNBY3RpdmUiOiBmYWxzZSwNCiAgICAiYmFsYW5jZSI6ICIkMiwyOTIuODgiLA0KICAgICJwaWN0dXJlIjogImh0dHA6Ly9wbGFjZWhvbGQuaXQvMzJ4MzIiDQp9DQpd"
             >Download app log</a>
     <p>Log history <textarea id="loghistory"></textarea></p>
     <p>Error history <textarea id="errorhistory"></textarea></p>
