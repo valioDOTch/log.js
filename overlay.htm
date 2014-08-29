@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<!-- this is kind of a test file -->
+<!--
+things to do
+1. type
+    console.setStyle("log",'color:#F00;font-size:40px;font-family: "Comic Sans MS", cursive, sans-serif;')
+    console.logWithStyle("So long an thanks for all the fish")
+    console.logWithStyle=console.log;
+    console.log("I wish you a bit more fun with console.log")
+
+2. press "CTRL+Shift+L" in the browser and download (still yet fake data)
+
+3. eliminate console.log in production with using some flag to change execution; e.g. in TWIGs
+        {% if app.production %}
+            <script type="text/javascript">console.error=console.log=function(){};</script>
+        {% endif%}
+    or in this file after including log.js
+        <script type="text/javascript">
+            var app.production=true;
+            if (app.production) {
+                console.error=console.log=function(){};
+            }
+        </script>
+
+4. consider coding more stuff yourself (and probably submit it):
+    add an overlay with console.output for easy access during dev
+    log history: send it to the server on app error
+    log history: let user save app infos as a file
+    play sounds on error
+-->
+<!-- trying to use this? run it from a local domain localhost or log.js OR insert your own GMap API key below -->
+<head>
+    <script src="log.js"></script>
+
+
+    <script src="shortcut.js"></script>
+    <style type="text/css">
+        div#specialBox {
+            display: none;
+            position: fixed;
+            z-index: 9001; //it's over 9000!
+            margin: 150px auto 0px auto;
+            width: 500px;
+            height: 300px;
+            top:0;
+            left:0;
+            opacity: 0.9;
+            background: #FFF;
+            color: #000;
+        }
+        html { height: 100% }
+        body { height: 100%; margin: 0px; padding: 0px }
+        #container { width: 100%; height: 100% }
+        #nav { z-index: 100; position: absolute;
+            margin: 10px 0px 0px 200px; background-color: #fff;
+            border: 1px #000 Solid; padding: 5px; }
+        #map { width: 100%; height: 100% }
+    </style>
+    <script type="text/javascript">
+        function toggleOverlay(){
+            var overlay = document.getElementById('overlay');
+            var specialBox = document.getElementById('specialBox');
+            overlay.style.opacity = .8;
+            if(overlay.style.display == "block"){
+                overlay.style.display = "none";
+                specialBox.style.display = "none";
+            } else {
+                document.getElementById('loghistory').innerHtml="<pre>"+console.log.history.join("\n")+"</pre>";
+                document.getElementById('errorhistory').innerHtml="<pre>"+console.error.history.join("\n")+"</pre>";
+                overlay.style.display = "block";
+                specialBox.style.display = "block";
+            }
+        }
+
+
+        //use data url, base64 here; not finished
+        // http://stackoverflow.com/questions/283956/is-there-any-way-to-specify-a-suggested-filename-when-using-data-uri
+        // http://stackoverflow.com/questions/246801/how-can-you-encode-a-string-to-base64-in-javascript
+        // http://html5-demos.appspot.com/static/a.download.html
+        function changeDataLink(){
+            var d = document.getElementById("link");
+            d.href = "data:application/json;base64,abcdefghijklmnopt";
+        }
+
+
+    </script>
+</head>
+<body>
+<div id="overlay"></div>
+<iframe width="100%" height="100%" frameborder="0" style="border:0; height:100%;width:100%;"
+        src="https://www.google.com/maps/embed/v1/place?q=Binzm%C3%BChlestrasse%2014%2C%20Zurich%2C%20Switzerland&key=AIzaSyCQeyM9rHXvF74o-lIMy9mJkQssDahEZMI"></iframe>
+
+<div id="specialBox">
+    <p>Debug</p>
+    <!--data:application/json-->
+    <a id="link"
+       href="application/octet-stream;base64,Ww0KICB7DQogICAgIl9pZCI6ICI1NDAwMzNmZTZjMzRhNjA3MGE4MmYyZDUiLA0KICAgICJpbmRleCI6IDAsDQogICAgImd1aWQiOiAiOTJmM2JhMmUtMTgxMC00MWEwLWE2Y2ItZmE1OGJhOTE1MTA3IiwNCiAgICAiaXNBY3RpdmUiOiBmYWxzZSwNCiAgICAiYmFsYW5jZSI6ICIkMiwyOTIuODgiLA0KICAgICJwaWN0dXJlIjogImh0dHA6Ly9wbGFjZWhvbGQuaXQvMzJ4MzIiDQp9DQpd"
+            >Download app log</a>
+    <p>Log history <textarea id="loghistory"></textarea></p>
+    <p>Error history <textarea id="errorhistory"></textarea></p>
+
+    <button onmousedown="toggleOverlay()">Close Overlay</button>
+</div>
+<script>
+    shortcut.add("Ctrl+Shift+Alt+L",toggleOverlay);
+</script>
+</body>
+</html>
